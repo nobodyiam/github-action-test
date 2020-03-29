@@ -34,6 +34,7 @@ jobs:
       if: matrix.jdk != '7'
       run: mvn -B package --file pom.xml
     - name: Coveralls GitHub Action
+      if: matrix.jdk == '8'
       uses: coverallsapp/github-action@v1.0.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
