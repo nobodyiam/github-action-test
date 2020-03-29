@@ -26,14 +26,17 @@ jobs:
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2  
-    - name: Client Test
+        restore-keys: ${{ runner.os }}-m2
+    - name: JDK 7
       if: matrix.jdk == '7'
       run: mvn -B clean test
-    - name: Full Test
-      if: matrix.jdk != '7'
+    - name: JDK 8
+      if: matrix.jdk == '8'
+      run: mvn -B package jacoco:report
+    - name: JDK 11
+      if: matrix.jdk == '11'
       run: mvn -B package
-    - name: Upload coverage to Codecov  
+    - name: Upload coverage to Codecov
       if: matrix.jdk == '8'
       uses: codecov/codecov-action@v1
       with:
