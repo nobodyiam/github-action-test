@@ -10,11 +10,11 @@ on:
     branches: [ master ]
 
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        jdk: [8, 11]
+        jdk: [7, 8, 11]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
@@ -27,21 +27,9 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2  
-    - name: Build with Maven
+    - name: Client Test
+      if: ${{ matrix.jdk }} == '7'
       run: mvn -B package --file pom.xml
-  JDK7:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 1.7
-      uses: actions/setup-java@v1
-      with:
-        java-version: 7
-    - name: Cache Maven packages
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2  
-    - name: Build with Maven
+    - name: Full Test
+      if: ${{ matrix.jdk }} != '7'
       run: mvn -B package --file pom.xml
