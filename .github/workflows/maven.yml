@@ -40,7 +40,7 @@ jobs:
       if: matrix.jdk == '8'
       uses: codecov/codecov-action@v1
       with:
-        file: ./github-action-test/target/site/jacoco/jacoco.xml
+        file: ${{ github.workspace }}/github-action-test/github-action-test/target/site/jacoco/jacoco.xml
     - name: Coveralls GitHub Action
       if: matrix.jdk == '6'
       uses: coverallsapp/github-action@v1.0.1
