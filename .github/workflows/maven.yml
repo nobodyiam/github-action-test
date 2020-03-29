@@ -44,8 +44,9 @@ jobs:
       with:
         file: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
     - name: Coveralls GitHub Action
-      if: matrix.jdk == '6'
+      if: matrix.jdk == '8'
       uses: coverallsapp/github-action@v1.0.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
 
