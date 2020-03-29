@@ -28,8 +28,8 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2  
     - name: Client Test
-      if: ${{ matrix.jdk }} == '7'
+      if: matrix.jdk == '7'
       run: mvn -B clean test
     - name: Full Test
-      if: ${{ matrix.jdk }} != '7'
+      if: matrix.jdk != '7'
       run: mvn -B package --file pom.xml
