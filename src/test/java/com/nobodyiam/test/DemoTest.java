@@ -21,4 +21,12 @@ public class DemoTest {
 
     assertEquals(i1 + i2, demo.add(i1, i2));
   }
+
+  @Test
+  public void minus() {
+    int i1 = 10;
+    int i2 = 20;
+
+    assertEquals(i1 - i2, demo.minus(i1, i2));
+  }
 }
