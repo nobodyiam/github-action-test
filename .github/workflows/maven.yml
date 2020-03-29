@@ -34,7 +34,7 @@ jobs:
       run: mvn -B clean test
     - name: JDK 8
       if: matrix.jdk == '8'
-      run: mvn -B package jacoco:report
+      run: mvn -B package jacoco:report coveralls:report
     - name: JDK 11
       if: matrix.jdk == '11'
       run: mvn -B package
@@ -43,10 +43,3 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         file: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
-    - name: Coveralls GitHub Action
-      if: matrix.jdk == '8'
-      uses: coverallsapp/github-action@v1.0.1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
-
