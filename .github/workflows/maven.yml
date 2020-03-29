@@ -32,9 +32,14 @@ jobs:
       run: mvn -B clean test
     - name: Full Test
       if: matrix.jdk != '7'
-      run: mvn -B package --file pom.xml
-    - name: Coveralls GitHub Action
+      run: mvn -B package
+    - name: Upload coverage to Codecov  
       if: matrix.jdk == '8'
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./target/site/jacoco/jacoco.xml
+    - name: Coveralls GitHub Action
+      if: matrix.jdk == '6'
       uses: coverallsapp/github-action@v1.0.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
