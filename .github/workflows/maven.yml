@@ -40,21 +40,21 @@ jobs:
       run: mvn -B package
   coverage:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Set up JDK
-          uses: actions/setup-java@v1
-          with:
-            java-version: 8
-        - name: Cache Maven packages
-          uses: actions/cache@v1
-          with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
-        - name: Jacoco
-          run: mvn -B test jacoco:report
-        - name: Upload coverage to Codecov
-          uses: codecov/codecov-action@v1
-          with:
-            file: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 8
+    - name: Cache Maven packages
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: Jacoco
+      run: mvn -B test jacoco:report
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
